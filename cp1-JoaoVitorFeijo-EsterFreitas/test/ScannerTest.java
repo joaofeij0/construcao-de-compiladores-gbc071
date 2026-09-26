@@ -9,7 +9,7 @@ import java.util.List;
 public class ScannerTest {
 
     public static void main(String[] args) {
-        System.out.println("=== EXECUTANDO TESTES (SEÇÃO 3.4) ===");
+        System.out.println("=== EXECUTANDO TESTES ===");
 
         testCincoCategoriasValidas();
 
