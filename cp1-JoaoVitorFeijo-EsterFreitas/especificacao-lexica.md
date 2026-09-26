@@ -7,7 +7,7 @@
 
 ## 1. Visão geral da linguagem
 
-Definimos uma linguagem imperativa e estaticamente tipada, pensando em uma futura execução sobre a TAM (Triangle Abstract Machine), que é a máquina de pilha usada na disciplina. A ideia foi manter o escopo enxuto o suficiente para dar pra implementar o analisador léxico sem complicação demais, mas ainda assim cobrindo o que normalmente se pede num compilador básico. Ficou definido o seguinte:
+Definimos uma linguagem imperativa e estaticamente tipada, a ideia foi manter o escopo enxuto o suficiente para dar pra implementar o analisador léxico sem complicação demais, mas ainda assim cobrindo o que normalmente se pede num compilador básico. Ficou definido o seguinte:
 
 - **Tipos básicos:** `int`, `double`, `bool`, `char` e `string`.
 - **Estruturas de controle:** condicional com `if`/`else` e repetição com `while` e `for`.
@@ -63,17 +63,17 @@ Fechamos a lista de palavras-chave da linguagem em 13 no total, mostradas na tab
 
 | Palavra Reservada | Categoria | Descrição no Escopo |
 |---|---|---|
-| `int` | Tipo básico | Inteiro de 32 bits com sinal |
-| `double` | Tipo básico | Ponto flutuante IEEE-754 dupla precisão |
+| `int` | Tipo básico | Inteiro |
+| `double` | Tipo básico | Ponto flutuante |
 | `bool` | Tipo básico | Tipo lógico (`true` ou `false`) |
 | `char` | Tipo básico | Caractere único |
 | `string` | Tipo básico | Cadeia de caracteres |
-| `void` | Procedimento | Ausência de retorno em procedimentos/funções |
+| `void` | Procedimento | Ausência de retorno |
 | `if` | Controle | Comando condicional (se) |
 | `else` | Controle | Ramo alternativo condicional (senão) |
 | `while` | Controle | Laço de repetição com pré-teste |
 | `for` | Controle | Laço de repetição com inicialização, teste e passo |
-| `return` | Sub-rotina | Retorno de função ou procedimento |
+| `return` | Sub-rotina | Retorno de função |
 | `true` | Literal booleano | Constante lógica verdadeira |
 | `false` | Literal booleano | Constante lógica falsa |
 
