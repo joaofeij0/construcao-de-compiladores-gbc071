@@ -14,7 +14,7 @@ public class ScannerTest {
 
     public static void main(String[] args) {
         System.out.println("==================================================================");
-        System.out.println(" EXECUÇÃO DA SUÍTE DE TESTES: ANALISADOR LÉXICO (CHECKPOINT 1)   ");
+        System.out.println(" EXECUÇÃO DA SUÍTE DE TESTES DO ANALISADOR LÉXICO ");
         System.out.println("==================================================================");
 
         testIdentifiers();
@@ -39,9 +39,9 @@ public class ScannerTest {
         System.out.println("==================================================================");
 
         if (failedTests == 0) {
-            System.out.println(">>> TODOS OS TESTES PASSARAM COM 100% DE SUCESSO! <<<");
+            System.out.println(">>> TODOS OS TESTES PASSARAM COM SUCESSO! <<<");
         } else {
-            System.err.println(">>> ATENÇÃO: Houve falhas em testes! <<<");
+            System.err.println(">>> Houve falhas em testes! <<<");
             System.exit(1);
         }
     }
