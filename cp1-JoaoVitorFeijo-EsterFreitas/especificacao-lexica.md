@@ -1,23 +1,35 @@
-## Especificação Léxica 
+## Especificação Léxica da Linguagem
 
-**Disciplina:** Construção de Compiladores -GBC071
-**Autores:** João Vitor Feijó Asevedo e Ester Camilly Simplício de Freitas
+**Disciplina:** Construção de Compiladores - GBC071
+**Grupo:** João Vitor Feijó Asevedo e Ester Camilly Simplício de Freitas
 
 ---
 
-## 1. Visão Geral e Escopo da Linguagem
+## 1. Visão geral da linguagem
+
+Definimos uma linguagem imperativa e estaticamente tipada, pensando em uma futura execução sobre a TAM (Triangle Abstract Machine), que é a máquina de pilha usada na disciplina. A ideia foi manter o escopo enxuto o suficiente para dar pra implementar o analisador léxico sem complicação demais, mas ainda assim cobrindo o que normalmente se pede num compilador básico. Ficou definido o seguinte:
 
 - **Tipos básicos:** `int`, `double`, `bool`, `char` e `string`.
-- **Estruturas de controle:** condicional (`if` / `else`) e repetição (`while` e `for`).
-- **Funções:** declaração com tipos de retorno (`void` ou outros tipos), parâmetros por valor, chamadas e retorno (`return`) com ou sem expressão.
+- **Estruturas de controle:** condicional com `if`/`else` e repetição com `while` e `for`.
+- **Procedimentos e funções:** podem ter tipo de retorno (`void` ou um tipo primitivo), recebem parâmetros por valor e usam `return` para devolver (ou não) um valor.
+
+Abaixo resumimos as principais categorias de tokens que o analisador léxico precisa reconhecer, junto com as decisões que tomamos pra cada uma:
+
+| Token | Notação (regex/EBNF) | Exemplos válidos | O que precisa decidir / Decisões adotadas |
+| :--- | :--- | :--- | :--- |
+| **Identificador** | `letra (letra \| digito \| "_")*`<br><br>*Regex:* `[a-zA-Z_][a-zA-Z0-9_]*` | `total`, `x1`, `contaItens`, `_temp`, `val_max` | • **Case-sensitive?** Sim, diferencia maiúsculas de minúsculas (`total` ≠ `Total`).<br>• **"_" permitido?** Sim, tanto no início quanto no corpo do identificador.<br>• **Tamanho máximo?** Limite prático de 64 caracteres. |
+| **Palavra reservada** | `mesmo padrão do identificador + tabela de busca`<br><br>*Padrão:* `int \| double \| bool \| char \| string \| void \| if \| else \| while \| for \| return \| true \| false` | `if`, `while`, `int`, `return`, `bool`, `void` | • **Lista fechada de palavras-chave:** Exatamente 13 palavras reservadas (`int`, `double`, `bool`, `char`, `string`, `void`, `if`, `else`, `while`, `for`, `return`, `true`, `false`). Estritamente minúsculas. |
+| **String** | `" (qualquer caractere ≠ " e ≠ \n e ≠ \r)* "`<br><br>*Regex:* `" ( [^"\\\n\r] \| \\["nt\\] )* "` | `"ok"`, `"linha 1"`, `"com \"escape\""`, `""` | • **Escapes permitidos:** `\"`, `\n`, `\t`, `\\`.<br>• **Não fechar até EOL (fim de linha):** Dispara erro léxico e recupera na próxima linha.<br>• **Não fechar até EOF:** Dispara erro léxico apontando a linha/coluna de abertura. |
+| **Operador** | `1 ou 2 caracteres`<br><br>*Regex:* `= \| == \| < \| <= \| > \| >= \| ! \| != \| + \| - \| * \| / \| % \| && \| \|\|` | `=`, `==`, `<=`, `+`, `&&`, `!=`, `<`, `>=` | • **Operadores existentes:** Atribuição (`=`), Aritméticos (`+`, `-`, `*`, `/`, `%`), Relacionais (`==`, `!=`, `<`, `<=`, `>`, `>=`), Lógicos (`&&`, `\|\|`, `!`).<br>• **Formas compostas:** `==`, `<=`, `>=`, `!=`, `&&`, `\|\|`. Desambiguação por *Maximal Munch*. |
+| **Literal numérico** | `digito+ ("." digito+)?`<br><br>*Inteiro:* `[0-9]+`<br>*Double:* `[0-9]+ \. [0-9]+` | `10`, `3.14`, `0`, `42`, `100.0` | • **Inteiro:** Sequência decimal pura (`[0-9]+`).<br>• **Ponto flutuante:** Exige dígito antes e após o ponto (`dígito+ \. dígito+`).<br>• **Notação científica / Hexadecimal:** Não adotados para simplificação do autômato determinístico. |
 
 ---
 
-## 2. Questões Obrigatórias
+## 2. Questões obrigatórias
 
 ### 2.1. Qual é o alfabeto de entrada?
 
-O alfabeto de entrada da linguagem é composto pelos caracteres do conjunto ASCII imprimível (códigos de 32 a 126 inclusive), acrescido dos caracteres de controle de espaçamento:
+Decidimos usar como alfabeto de entrada o conjunto de caracteres ASCII imprimíveis (do código 32 ao 126), mais os caracteres de espaçamento que servem pra separar os tokens:
 
 | Caractere | Descrição | Código ASCII |
 |---|---|---|
@@ -26,45 +38,28 @@ O alfabeto de entrada da linguagem é composto pelos caracteres do conjunto ASCI
 | `\n` | Quebra de linha (LF) | 10 |
 | `\r` | Retorno de carro (CR) | 13 |
 
-**Nota de Tratamento:** Caracteres fora deste domínio (ex.: `@`, `$`, `~`, `^`, caracteres binários) disparam erro léxico reportado com linha e coluna exatas, sendo descartados na recuperação para que o restante do arquivo continue a ser analisado.
+Qualquer caractere fora desse conjunto (tipo `@`, `$`, `~`, `^` ou algum caractere binário estranho) é considerado inválido. Quando isso acontece, o analisador léxico não trava: ele reporta o erro dizendo exatamente em que linha e coluna aconteceu, descarta aquele caractere e continua lendo o resto do arquivo normalmente.
 
 ### 2.2. A linguagem é case-sensitive?
 
-**Sim.** A linguagem é estritamente sensível a maiúsculas e minúsculas (*case-sensitive*). Por exemplo, os identificadores `total`, `Total` e `TOTAL` representam símbolos distintos.
+Sim, optamos por deixar a linguagem case-sensitive, ou seja, ela diferencia maiúsculas de minúsculas. Isso quer dizer que `total`, `Total` são dois identificadores diferentes para o compilador.
 
-- **Palavras reservadas:** Devem ser grafadas obrigatoriamente em minúsculas (ex.: `int`, `if`, `while`, `return`). Escrever `IF` ou `While` fará com que sejam interpretados como identificadores comuns e não como palavras-chave.
-- **Identificadores:** Seguem a mesma sensibilidade de caixa, permitindo letras maiúsculas e minúsculas (`[a-zA-Z]`).
+- **Palavras reservadas:** só valem em minúsculo (`int`, `if`, `while`, `return` etc.). Se escrever `IF` ou `While`, o scanner não reconhece como palavra-chave e trata como um identificador comum.
+- **Identificadores:** seguem essa mesma lógica de diferenciar caixa alta, podendo misturar letras maiúsculas e minúsculas (`[a-zA-Z]`).
 
-### 2.3. Como são delimitados espaços em branco e comentários?
+### 2.3. Como ficam delimitados os espaços em branco e os comentários?
 
-- **Espaços em branco:** Sequências de `' '`, `'\t'`, `'\r'` e `'\n'` funcionam exclusivamente como separadores de tokens e delimitadores léxicos. Não geram tokens para o analisador sintático, mas atualizam os contadores de linha e coluna do cursor.
-- **Comentários de linha:** Iniciam com a sequência `//` e estendem-se até o primeiro caractere `\n` encontrado ou até o fim de arquivo (EOF). Não geram tokens.
-- **Comentários de bloco:** Iniciam com `/*` e terminam com `*/`. Podem abranger múltiplas linhas. Não é permitido o aninhamento de comentários de bloco (o primeiro `*/` fecha o bloco corrente, seguindo a semântica de C e Java). Se o arquivo terminar (EOF) antes do fechamento com `*/`, o analisador reporta erro léxico, informando a linha e coluna de início do comentário.
+- **Espaços em branco:** os caracteres `' '`, `'\t'`, `'\r'` e `'\n'` servem só pra separar os tokens durante a análise léxica. Eles não viram token pro analisador sintático, mas são usados internamente pra atualizar os contadores de linha e coluna (que são usados para reportar erros depois).
+- **Comentários de linha:** começam com `//` e vão até encontrar um `\n` ou até acabar o arquivo (EOF) e não geram token.
+- **Comentários de bloco:** começam com `/*` e terminam com `*/`, podendo ocupar várias linhas. Decidimos não permitir aninhamento: o primeiro `*/` que aparece já fecha o comentário. Se o arquivo acabar antes de fechar o comentário, é gerado um erro léxico apontando a linha e a coluna onde o `/*` começou.
 
-### 2.4. Regra de desambiguação ("Maximal Munch")
+### 2.4. Regra de desambiguação (Maximal Munch)
 
-Para operadores simples vs. compostos e comentários, aplica-se estritamente a regra do **Maximal Munch** (*longest match*):
+Pra decidir entre operadores simples e compostos (e também pra diferenciar comentário de divisão), usamos a regra do Maximal Munch, o scanner sempre tenta consumir o maior prefixo válido possível antes de decidir qual token gerar.
 
-> O scanner consome sempre o prefixo válido mais longo possível antes de emitir o token.
+### 2.5. Lista fechada de palavras reservadas
 
-**Exemplos práticos:**
-
-- Ao encontrar `=`, o autômato consulta o próximo caractere (`peek()`):
-  - Se for `=`, consome e produz o token `OP_EQ` (`==`).
-  - Se for qualquer outro caractere, produz `OP_ASSIGN` (`=`).
-- Ao encontrar `<`, se seguido de `=`, produz `OP_LE` (`<=`); senão, `OP_LT` (`<`).
-- Ao encontrar `>`, se seguido de `=`, produz `OP_GE` (`>=`); senão, `OP_GT` (`>`).
-- Ao encontrar `!`, se seguido de `=`, produz `OP_NE` (`!=`); senão, `OP_NOT` (`!`).
-- Ao encontrar `/`:
-  - Se o próximo for `/`, entra no estado de comentário de linha.
-  - Se o próximo for `*`, entra no estado de comentário de bloco.
-  - Se for qualquer outro caractere, produz o operador de divisão `OP_DIV` (`/`).
-- Ao encontrar `&`, se seguido de `&`, produz `OP_AND` (`&&`). Caso isolado, dispara erro léxico.
-- Ao encontrar `|`, se seguido de `|`, produz `OP_OR` (`||`). Caso isolado, dispara erro léxico.
-
-### 2.5. Lista Fechada de Palavras Reservadas
-
-A tabela a seguir apresenta a lista fechada e exaustiva de palavras reservadas da linguagem (13 palavras-chave):
+Fechamos a lista de palavras-chave da linguagem em 13 no total, mostradas na tabela abaixo:
 
 | Palavra Reservada | Categoria | Descrição no Escopo |
 |---|---|---|
@@ -84,25 +79,14 @@ A tabela a seguir apresenta a lista fechada e exaustiva de palavras reservadas d
 
 ---
 
-## 3. Categorias de Tokens da Linguagem
+## 3. Como o analisador trata os erros
 
-| Token | Notação (regex/EBNF) | Exemplos válidos | O que precisa decidir / Decisões adotadas |
-| :--- | :--- | :--- | :--- |
-| **Identificador** | `letra (letra \| digito \| "_")*`<br><br>*Regex:* `[a-zA-Z_][a-zA-Z0-9_]*` | `total`, `x1`, `contaItens`, `_temp`, `val_max` | • **Case-sensitive?** Sim, diferencia maiúsculas de minúsculas (`total` ≠ `Total`).<br>• **"_" permitido?** Sim, tanto no início quanto no corpo do identificador.<br>• **Tamanho máximo?** Limite prático de 64 caracteres. |
-| **Palavra reservada** | `mesmo padrão do identificador + tabela de busca`<br><br>*Padrão:* `int \| double \| bool \| char \| string \| void \| if \| else \| while \| for \| return \| true \| false` | `if`, `while`, `int`, `return`, `bool`, `void` | • **Lista fechada de palavras-chave:** Exatamente 13 palavras reservadas (`int`, `double`, `bool`, `char`, `string`, `void`, `if`, `else`, `while`, `for`, `return`, `true`, `false`). Estritamente minúsculas. |
-| **String** | `" (qualquer caractere ≠ " e ≠ \n e ≠ \r)* "`<br><br>*Regex:* `" ( [^"\\\n\r] \| \\["nt\\] )* "` | `"ok"`, `"linha 1"`, `"com \"escape\""`, `""` | • **Escapes permitidos:** `\"`, `\n`, `\t`, `\\`.<br>• **Não fechar até EOL (fim de linha):** Dispara erro léxico e recupera na próxima linha.<br>• **Não fechar até EOF:** Dispara erro léxico apontando a linha/coluna de abertura. |
-| **Operador** | `1 ou 2 caracteres`<br><br>*Regex:* `= \| == \| < \| <= \| > \| >= \| ! \| != \| + \| - \| * \| / \| % \| && \| \|\|` | `=`, `==`, `<=`, `+`, `&&`, `!=`, `<`, `>=` | • **Operadores existentes:** Atribuição (`=`), Aritméticos (`+`, `-`, `*`, `/`, `%`), Relacionais (`==`, `!=`, `<`, `<=`, `>`, `>=`), Lógicos (`&&`, `\|\|`, `!`).<br>• **Formas compostas:** `==`, `<=`, `>=`, `!=`, `&&`, `\|\|`. Desambiguação por *Maximal Munch*. |
-| **Literal numérico** | `digito+ ("." digito+)?`<br><br>*Inteiro:* `[0-9]+`<br>*Double:* `[0-9]+ \. [0-9]+` | `10`, `3.14`, `0`, `42`, `100.0` | • **Inteiro:** Sequência decimal pura (`[0-9]+`).<br>• **Ponto flutuante:** Exige dígito antes e após o ponto (`dígito+ \. dígito+`).<br>• **Notação científica / Hexadecimal:** Não adotados para simplificação do autômato determinístico. |
+Decidimos seguir uma filosofia de não interromper a análise, ou seja, ao invés de parar tudo no primeiro erro, o analisador registra o problema (com linha e coluna de onde começou) e tenta se recuperar pra continuar lendo o resto do arquivo. Os casos que mapeamos foram:
 
----
+- **Caractere fora do alfabeto:** mostra a mensagem `Caractere inválido '@'`, descarta esse caractere e volta pro estado inicial pra seguir lendo.
+- **String não fechada até o fim da linha (EOL):** mostra `String não fechada antes do fim da linha`, para de ler ali e retoma a análise já na linha seguinte.
+- **String não fechada até o fim do arquivo (EOF):** mostra `String não fechada até o fim do arquivo (EOF)`, indicando onde as aspas foram abertas.
+- **Comentário de bloco não fechado até o EOF:** mostra `Comentário de bloco '/*' não fechado até o fim do arquivo (EOF)`, apontando a linha e coluna onde o `/*` começou.
+- **Operador malformado:** mostra `Caractere inesperado '&', esperado '&&'`.
 
-## 4. Política de Tratamento e Recuperação de Erros
-
-O analisador léxico adota a **filosofia de não-interrupção**: ao encontrar um erro léxico, o analisador registra o erro com a linha e coluna exatas do início da anomalia, e em seguida aplica uma estratégia de recuperação por descarte pontual:
-
-- **Caractere fora do alfabeto:** emite mensagem `Caractere inválido '@'`, consome o caractere e volta ao estado inicial para continuar o processamento.
-- **String não fechada até fim de linha (EOL):** emite mensagem `String não fechada antes do fim da linha`, interrompe a leitura na linha atual e retoma no início da linha seguinte.
-- **String não fechada até fim de arquivo (EOF):** emite mensagem `String não fechada até o fim do arquivo (EOF)`, marcando a posição onde as aspas foram abertas.
-- **Comentário de bloco não fechado até EOF:** emite mensagem `Comentário de bloco '/*' não fechado até o fim do arquivo (EOF)`, referenciando a linha e coluna onde `/*` começou.
-- **Operador malformado:** emite mensagem `Caractere inesperado '&', esperado '&&'`.
-
+Achamos que essa abordagem é melhor porque em vez de parar assim que aparece o primeiro erro, o usuário consegue ver de uma vez só todos os problemas léxicos do arquivo.
