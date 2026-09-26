@@ -7,7 +7,7 @@ public class Token {
     private final String lexeme;
     private final int line;
     private final int column;
-    private final Object literal; // Valor tipado opcional (Integer, Double, String, etc.)
+    private final Object literal; 
 
     public Token(TokenType type, String lexeme, int line, int column) {
         this(type, lexeme, line, column, null);
