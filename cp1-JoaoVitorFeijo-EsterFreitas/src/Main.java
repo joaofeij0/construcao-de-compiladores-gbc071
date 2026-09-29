@@ -26,7 +26,7 @@ public class Main {
         } else {
             System.out.println("Nenhum arquivo fornecido. Executando código de demonstração realista:");
             sourceCode =
-                "// Exemplo realista de código da linguagem\n" +
+                "// Exemplo de código na nossa linguagem\n" +
                 "int calculaFatorial(int n) {\n" +
                 "    int resultado = 1;\n" +
                 "    double taxa = 1.05;\n" +
@@ -74,7 +74,7 @@ public class Main {
                 System.out.println(err);
             }
         } else {
-            System.out.println("\n[SUCESSO] Análise léxica concluída sem erros!");
+            System.out.println("\nAnálise léxica concluída sem erros!");
         }
     }
 
