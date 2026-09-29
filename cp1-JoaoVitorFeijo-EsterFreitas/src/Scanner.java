@@ -220,8 +220,13 @@ public class Scanner {
                 advance();
             }
             String lexeme = source.substring(start, current);
-            Double val = Double.parseDouble(lexeme);
-            return new Token(TokenType.LIT_DOUBLE, lexeme, tokenStartLine, tokenStartColumn, val);
+            try {
+                Double val = Double.parseDouble(lexeme);
+                return new Token(TokenType.LIT_DOUBLE, lexeme, tokenStartLine, tokenStartColumn, val);
+            } catch (NumberFormatException e) {
+                reportError("Literal double fora do intervalo permitido", lexeme);
+                return new Token(TokenType.ERROR, lexeme, tokenStartLine, tokenStartColumn);
+            }
         } else if (peek() == '.' && !isDigit(peekNext())) {
             advance();
             reportError("Número decimal mal formatado: esperado ao menos um dígito após o ponto '.'",
@@ -230,8 +235,13 @@ public class Scanner {
         }
 
         String lexeme = source.substring(start, current);
-        Long val = Long.parseLong(lexeme);
-        return new Token(TokenType.LIT_INT, lexeme, tokenStartLine, tokenStartColumn, val);
+        try {
+            Long val = Long.parseLong(lexeme);
+            return new Token(TokenType.LIT_INT, lexeme, tokenStartLine, tokenStartColumn, val);
+        } catch (NumberFormatException e) {
+            reportError("Literal inteiro fora do intervalo de 64 bits", lexeme);
+            return new Token(TokenType.ERROR, lexeme, tokenStartLine, tokenStartColumn);
+        }
     }
 
     private Token scanString() {
