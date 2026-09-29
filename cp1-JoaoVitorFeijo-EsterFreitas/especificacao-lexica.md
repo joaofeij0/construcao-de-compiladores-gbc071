@@ -67,8 +67,8 @@ double  = digito+ "." digito+        Regex: [0-9]+\.[0-9]+
 
 - **Exemplos válidos:** `10`, `0`, `42` (`LIT_INT`); `3.14`, `100.0` (`LIT_DOUBLE`).
 - O ponto exige dígito antes e depois. Zeros à esquerda são aceitos (`007`).
-- Não há notação científica nem hexadecimal. O sinal `-` é sempre o operador `OP_MINUS`; não faz parte do literal.
-- Valor numérico: `LIT_INT` é convertido para inteiro de 64 bits com sinal; `LIT_DOUBLE` para `double`. Um inteiro fora desse intervalo é erro léxico (Seção 6).
+- Não há notação científica nem hexadecimal. O sinal `-` é sempre o operador `OP_MINUS`.
+- Valor numérico: `LIT_INT` é convertido para inteiro de 64 bits com sinal; `LIT_DOUBLE` para `double`. Um inteiro fora desse intervalo é erro léxico.
 - **Casos de borda:**
   - `12.` (ponto sem dígito depois): o ponto é consumido, é reportado erro e é emitido um token `ERROR` com lexema `12.`.
   - `3.14.15`: gera `3.14`, depois erro de caractere inválido para `.` e depois `15`.
@@ -117,7 +117,7 @@ Todos têm 1 ou 2 caracteres.
 | Lógicos | `&&` `\|\|` `!` | `OP_AND` `OP_OR` `OP_NOT` |
 
 - **Formas compostas:** `==`, `!=`, `<=`, `>=`, `&&`, `||`. Desambiguação por maximal munch (ex.: `<=` é um token, não `<` seguido de `=`).
-- `&` e `|` sozinhos **não** são operadores da linguagem: geram erro léxico (Seção 6).
+- `&` e `|` sozinhos não são operadores da linguagem: geram erro léxico.
 
 ### 2.7 Delimitadores
 
@@ -127,8 +127,6 @@ Todos têm 1 ou 2 caracteres.
 | `)` | `RPAREN` | | `,` | `COMMA` |
 | `{` | `LBRACE` | | `[` | `LBRACKET` |
 | `}` | `RBRACE` | | `]` | `RBRACKET` |
-
-`[` e `]` são reconhecidos pelo scanner, mas o uso sintático (ex.: vetores) será definido na gramática.
 
 ---
 
@@ -148,9 +146,9 @@ Todos têm 1 ou 2 caracteres.
 | Ponto | `.`, somente dentro de literal `double` |
 | Barra invertida | `\`, somente dentro de string ou char |
 
-**Dentro de strings, chars e comentários**, qualquer caractere é aceito como conteúdo (inclusive acentuados), respeitadas as restrições das Seções 2.4, 2.5 e 5.
+**Dentro de strings, chars e comentários**, qualquer caractere é aceito como conteúdo (inclusive acentuados).
 
-Qualquer outro caractere é inválido (ex.: `@ $ # ~ ^ ? : `` ` ``, `.` ou `\` soltos, caracteres não ASCII fora de string/char/comentário). Ele é reportado como erro léxico, **descartado**, e a análise continua no caractere seguinte.
+Qualquer outro caractere é inválido (ex.: `@ $ # ~ ^ ? : `` ` ``, `.` ou `\` soltos, caracteres não ASCII fora de string/char/comentário). Ele é reportado como erro léxico, descartado, e a análise continua no caractere seguinte.
 
 ---
 
@@ -202,4 +200,4 @@ O scanner **nunca interrompe a análise**: registra o erro (linha e coluna) e co
 | Escape inválido em char | `Sequência de escape inválida em char '\X'` | apóstrofo de abertura | mantém o char e emite o token |
 | Comentário de bloco não fechado (EOF) | `Comentário de bloco '/*' não fechado até o fim do arquivo (EOF)` | o `/*` | descarta o restante |
 
-Assim, o usuário vê todos os problemas léxicos do arquivo de uma vez, em vez de parar no primeiro.
+Assim, o usuário vê todos os problemas léxicos do arquivo de uma vez só, em vez de parar no primeiro.
