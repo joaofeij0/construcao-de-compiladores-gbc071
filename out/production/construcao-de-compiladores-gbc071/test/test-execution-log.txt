@@ -1,0 +1,11 @@
+=== EXECUTANDO TESTES ===
+Teste 1: Casos válidos das 5 categorias... OK
+Teste 2: Erro - String nao fechada ate EOF... [Erro Léxico] Linha 1, Coluna 12: String não fechada até o fim do arquivo (EOF) (trecho: '"texto sem fechar')
+OK
+Teste 3: Erro - String nao fechada ate fim de linha... [Erro Léxico] Linha 1, Coluna 12: String não fechada antes do fim da linha (trecho: '"linha quebrada')
+OK
+Teste 4: Erro - Caractere fora do alfabeto... [Erro Léxico] Linha 1, Coluna 13: Caractere inválido fora do alfabeto: '@' (ASCII 64) (trecho: '@')
+OK
+Teste 5: Codigo realista em uma linha com declaracoes, expressoes e comentarios... OK
+
+>>> TODOS OS TESTES PASSARAM COM SUCESSO! <<<
