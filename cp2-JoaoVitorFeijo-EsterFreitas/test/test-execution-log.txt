@@ -1,0 +1,42 @@
+=== EXECUTANDO TESTES DO PARSER ===
+Teste 1 (válido): função com parâmetro, while, if e return com valor... OK
+Teste 2 (válido): globais, void, for, else if/else, chamada como comando... OK
+Teste 3 (válido): expressões com todos os operadores, unários, parênteses e chamadas... OK
+Teste 4 (válido): programa vazio, função sem parâmetros, bloco vazio, return; ... OK
+Teste 5 (válido): else associado sem ambiguidade (chaves obrigatórias)... OK
+Teste 6 (erro): falta ';' ao fim de uma declaração... 
+      [Erro Sintático] Linha 3, Coluna 5: esperado operador, ')', ',' ou ';', encontrado 'int'
+      -> OK
+Teste 7 (erro): falta ')' na condição do if... 
+      [Erro Sintático] Linha 2, Coluna 15: esperado operador, ')', ',' ou ';', encontrado '{'
+      -> OK
+Teste 8 (erro): bloco '{' sem o '}' correspondente (EOF)... 
+      [Erro Sintático] Linha 3, Coluna 1: esperado comando ou '}', encontrado fim do arquivo
+      -> OK
+Teste 9 (erro): operando faltando após '+'... 
+      [Erro Sintático] Linha 1, Coluna 20: esperado expressão, encontrado ';'
+      -> OK
+Teste 10 (erro): 'else' sem 'if'... 
+      [Erro Sintático] Linha 1, Coluna 12: esperado comando ou '}', encontrado 'else'
+      -> OK
+Teste 11 (erro): corpo do if sem '{' '}' (chaves são obrigatórias)... 
+      [Erro Sintático] Linha 1, Coluna 19: esperado '{', encontrado 'return'
+      -> OK
+Teste 12 (erro): ε só é aceito se o lookahead está em FOLLOW (argumento sem vírgula)... 
+      [Erro Sintático] Linha 1, Coluna 16: esperado operador, ')', ',' ou ';', encontrado '2'
+      -> OK
+Teste 13 (erro): token ERROR do scanner (12.) não derruba o parser... [Erro Léxico] Linha 1, Coluna 16: Número decimal mal formatado: esperado ao menos um dígito após o ponto '.' (trecho: '12.')
+
+      [Erro Sintático] Linha 1, Coluna 16: esperado expressão, encontrado token inválido '12.'
+      -> OK
+Teste 14 (pânico): 5 erros em um único programa, uma única rodada... 
+      [Erro Sintático] Linha 1, Coluna 9: esperado expressão, encontrado ';'
+      [Erro Sintático] Linha 4, Coluna 5: esperado operador, ')', ',' ou ';', encontrado 'if'
+      [Erro Sintático] Linha 4, Coluna 15: esperado operador, ')', ',' ou ';', encontrado '{'
+      [Erro Sintático] Linha 5, Coluna 17: esperado expressão, encontrado ';'
+      [Erro Sintático] Linha 9, Coluna 20: esperado operador, ')', ',' ou ';', encontrado '}'
+      -> OK
+Teste 15 (robustez): 30.000 entradas aleatórias/mutiladas, nenhuma trava... OK
+Teste 16 (robustez): programa grande (3000 comandos, expressão de 3000 termos)... OK
+
+>>> TODOS OS TESTES DO PARSER PASSARAM COM SUCESSO! <<<
