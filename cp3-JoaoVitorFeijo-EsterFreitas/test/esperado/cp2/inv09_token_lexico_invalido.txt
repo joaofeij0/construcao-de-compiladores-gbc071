@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 16: esperado expressão, encontrado token inválido '12.'

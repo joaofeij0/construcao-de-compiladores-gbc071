@@ -1,0 +1,4 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 20: esperado operador, ')', ',' ou ';', encontrado 'i'
+[Erro Sintático] Linha 2, Coluna 30: esperado '(' (chamada), operador, ')', ',' ou ';', encontrado '='
+[Erro Sintático] Linha 2, Coluna 37: esperado ';', encontrado ')'

@@ -1,0 +1,3 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 17: esperado expressão, encontrado ';'
+[Erro Sintático] Linha 3, Coluna 16: esperado expressão, encontrado ';'
