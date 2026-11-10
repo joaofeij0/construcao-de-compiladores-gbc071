@@ -1,0 +1,4 @@
+int f() {
+    int y = 3 + ;
+    return y * ;
+}

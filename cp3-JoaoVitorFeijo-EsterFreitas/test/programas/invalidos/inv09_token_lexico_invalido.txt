@@ -1,0 +1,4 @@
+double f() {
+    double d = 12.;
+    return d;
+}
