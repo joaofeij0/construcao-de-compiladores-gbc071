@@ -1,0 +1,19 @@
+// Programa 1: variavel global, funcoes, repeticao (while) e selecao (if/else)
+int limite = 10;
+
+int fatorial(int n) {
+    int resultado = 1;
+    while (n > 1) {
+        resultado = resultado * n;
+        n = n - 1;
+    }
+    return resultado;
+}
+
+bool ehPar(int x) {
+    if (x % 2 == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
