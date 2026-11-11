@@ -1,0 +1,9 @@
+int total = 0;
+int total = 1;
+void soma(int x) {
+    int y = x;
+    int y = total;
+    total = y;
+}
+void soma() {
+}

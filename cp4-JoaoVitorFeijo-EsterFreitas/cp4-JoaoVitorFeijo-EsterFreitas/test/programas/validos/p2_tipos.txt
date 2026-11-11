@@ -1,0 +1,30 @@
+// Programa 2: os cinco tipos basicos, procedimentos, for, else if, unarios e chamadas
+string saudacao = "ola, \"mundo\"\n";
+char inicial = 'a';
+double taxa = 1.50;
+
+double media(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+void mostra(string msg, int vezes) {
+    for (int i = 0; i < vezes; i = i + 1) {
+        imprime(msg);
+    }
+}
+
+void principal() {
+    bool ativo = !false;
+    int n = -3;
+    double m = media(taxa, 2.5);
+    char c;
+    if (n < 0 && ativo) {
+        n = -n;
+    } else if (n == 0) {
+        mostra("zero", 1);
+    } else {
+        c = '\'';
+    }
+    mostra(saudacao, n);
+    return;
+}

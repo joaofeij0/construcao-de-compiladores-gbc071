@@ -1,0 +1,22 @@
+// Programa 3: recursao, for com partes vazias, bloco aninhado e precedencia mista
+int contador;
+
+int mdc(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return mdc(b, a % b);
+}
+
+void conta(int limite) {
+    int i = 0;
+    for (; i < limite; ) {
+        {
+            contador = contador + i * 2 - 1;
+        }
+        i = i + 1;
+    }
+    while (!(i <= 0) || contador != 0 && limite > 1) {
+        i = i - 1;
+    }
+}

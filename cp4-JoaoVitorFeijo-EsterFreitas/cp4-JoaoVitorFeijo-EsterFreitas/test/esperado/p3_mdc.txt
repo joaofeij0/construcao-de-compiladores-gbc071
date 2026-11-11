@@ -1,0 +1,60 @@
+Program
+  VarDecl(int contador)
+  FuncDecl(int mdc)
+    Param(int a)
+    Param(int b)
+    Block
+      If
+        Bin(==)
+          Id(b)
+          Int(0)
+        Block
+          Return
+            Id(a)
+      Return
+        Call(mdc)
+          Id(b)
+          Bin(%)
+            Id(a)
+            Id(b)
+  ProcDecl(conta)
+    Param(int limite)
+    Block
+      VarDecl(int i)
+        Int(0)
+      For
+        cond: Bin(<)
+          Id(i)
+          Id(limite)
+        Block
+          Block
+            Assign(contador)
+              Bin(-)
+                Bin(+)
+                  Id(contador)
+                  Bin(*)
+                    Id(i)
+                    Int(2)
+                Int(1)
+          Assign(i)
+            Bin(+)
+              Id(i)
+              Int(1)
+      While
+        Bin(||)
+          Unary(!)
+            Bin(<=)
+              Id(i)
+              Int(0)
+          Bin(&&)
+            Bin(!=)
+              Id(contador)
+              Int(0)
+            Bin(>)
+              Id(limite)
+              Int(1)
+        Block
+          Assign(i)
+            Bin(-)
+              Id(i)
+              Int(1)

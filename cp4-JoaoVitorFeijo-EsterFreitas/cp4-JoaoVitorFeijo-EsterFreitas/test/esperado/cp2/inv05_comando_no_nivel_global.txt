@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 1, Coluna 1: esperado declaração (tipo ou 'void') ou fim do arquivo, encontrado 'x'

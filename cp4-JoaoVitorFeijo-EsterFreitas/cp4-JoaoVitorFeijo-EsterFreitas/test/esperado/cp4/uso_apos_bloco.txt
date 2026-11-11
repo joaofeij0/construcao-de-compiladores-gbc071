@@ -1,0 +1,29 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc p@1 => { p@1 }
+abre nível 1 => { } :: { p@1 }
+declara var a@2 => { a@2 } :: { p@1 }
+abre nível 2 => { } :: { a@2 } :: { p@1 }
+declara var b@4 => { b@4 } :: { a@2 } :: { p@1 }
+fecha nível 2 => { a@2 } :: { p@1 }
+abre nível 2 => { } :: { a@2 } :: { p@1 }
+declara var c@9 => { c@9 } :: { a@2 } :: { p@1 }
+fecha nível 2 => { a@2 } :: { p@1 }
+fecha nível 1 => { p@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 4: a -> a@2 (var, nível 1)
+linha 5: a -> a@2 (var, nível 1)
+linha 5: b -> b@4 (var, nível 2)
+linha 7: a -> a@2 (var, nível 1)
+linha 7: b -> não declarado
+linha 8: a -> a@2 (var, nível 1)
+linha 9: a -> a@2 (var, nível 1)
+linha 10: a -> a@2 (var, nível 1)
+linha 10: a -> a@2 (var, nível 1)
+linha 10: c -> c@9 (var, nível 2)
+linha 12: a -> a@2 (var, nível 1)
+linha 12: c -> não declarado
+== erros ==
+linha 7: 'b' não declarado
+linha 12: 'c' não declarado

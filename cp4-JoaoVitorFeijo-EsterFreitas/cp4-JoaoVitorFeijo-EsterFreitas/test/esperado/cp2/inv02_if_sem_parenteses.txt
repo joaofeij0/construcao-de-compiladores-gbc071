@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 8: esperado '(', encontrado 'a'

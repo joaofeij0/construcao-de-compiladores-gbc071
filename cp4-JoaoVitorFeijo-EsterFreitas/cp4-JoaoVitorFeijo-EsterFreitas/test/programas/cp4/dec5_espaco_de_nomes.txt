@@ -1,0 +1,10 @@
+int f = 1;
+void f() {
+}
+int g() {
+    return 0;
+}
+void h() {
+    int g = 2;
+    g = g + f;
+}

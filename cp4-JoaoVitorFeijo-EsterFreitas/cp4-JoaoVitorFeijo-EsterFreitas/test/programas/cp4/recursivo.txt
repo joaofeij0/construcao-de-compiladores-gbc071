@@ -1,0 +1,7 @@
+int contador = 0;
+void conta(int n) {
+    if (n > 0) {
+        contador = contador + 1;
+        conta(n - 1);
+    }
+}
