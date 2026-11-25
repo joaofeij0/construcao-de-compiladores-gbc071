@@ -1,0 +1,8 @@
+REJEITADO
+[Erro Sintático] Linha 1, Coluna 14: esperado tipo do parâmetro, encontrado ')'
+[Erro Sintático] Linha 2, Coluna 13: esperado expressão, encontrado ';'
+[Erro Sintático] Linha 3, Coluna 13: esperado expressão, encontrado ')'
+[Erro Sintático] Linha 5, Coluna 5: esperado operador, ')', ',' ou ';', encontrado '}'
+[Erro Sintático] Linha 6, Coluna 11: esperado '(', encontrado 'x'
+[Erro Sintático] Linha 10, Coluna 1: esperado '(' (chamada), operador, ')', ',' ou ';', encontrado '}'
+[Erro Sintático] Linha 13, Coluna 9: esperado operador, ')', ',' ou ';', encontrado '2'

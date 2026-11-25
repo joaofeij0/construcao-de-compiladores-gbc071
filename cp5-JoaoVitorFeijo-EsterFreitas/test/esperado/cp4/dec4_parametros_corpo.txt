@@ -1,0 +1,22 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc f@1 => { f@1 }
+declara proc g@7 => { f@1, g@7 }
+abre nível 1 => { } :: { f@1, g@7 }
+declara param a@1 => { a@1 } :: { f@1, g@7 }
+declara param b@1 => { a@1, b@1 } :: { f@1, g@7 }
+recusa var a@2 (já existe a@1) => { a@1, b@1 } :: { f@1, g@7 }
+abre nível 2 => { } :: { a@1, b@1 } :: { f@1, g@7 }
+declara var b@4 => { b@4 } :: { a@1, b@1 } :: { f@1, g@7 }
+fecha nível 2 => { a@1, b@1 } :: { f@1, g@7 }
+fecha nível 1 => { f@1, g@7 }
+abre nível 1 => { } :: { f@1, g@7 }
+declara param c@7 => { c@7 } :: { f@1, g@7 }
+recusa param c@7 (já existe c@7) => { c@7 } :: { f@1, g@7 }
+fecha nível 1 => { f@1, g@7 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 4: a -> a@1 (param, nível 1)
+== erros ==
+linha 2: 'a' já declarado neste escopo (linha 1)
+linha 7: 'c' já declarado neste escopo (linha 7)

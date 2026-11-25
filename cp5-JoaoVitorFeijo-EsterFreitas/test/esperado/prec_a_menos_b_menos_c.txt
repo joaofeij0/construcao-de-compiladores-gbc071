@@ -1,0 +1,7 @@
+Program
+  VarDecl(int x)
+    Bin(-)
+      Bin(-)
+        Id(a)
+        Id(b)
+      Id(c)

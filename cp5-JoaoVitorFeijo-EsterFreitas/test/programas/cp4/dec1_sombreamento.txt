@@ -1,0 +1,15 @@
+int a = 1;
+void p(int b) {
+    int c = a + b;
+    {
+        int a = 10;
+        int b = a;
+        {
+            int p = a + b;
+            c = p;
+        }
+        c = a;
+    }
+    c = a;
+    int c = 0;
+}

@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 1, Coluna 8: esperado tipo de parâmetro ou ')', encontrado 'a'

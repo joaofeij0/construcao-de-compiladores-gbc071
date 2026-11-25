@@ -1,0 +1,21 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc p@2 => { p@2 }
+recusa proc p@7 (já existe p@2) => { p@2 }
+declara var x@1 => { p@2, x@1 }
+abre nível 1 => { } :: { p@2, x@1 }
+declara var x@4 => { x@4 } :: { p@2, x@1 }
+recusa var x@5 (já existe x@4) => { x@4 } :: { p@2, x@1 }
+fecha nível 1 => { p@2, x@1 }
+abre nível 1 => { } :: { p@2, x@1 }
+fecha nível 1 => { p@2, x@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 3: y -> não declarado
+linha 3: x -> x@1 (var, nível 0)
+linha 8: z -> não declarado
+== erros ==
+linha 3: 'y' não declarado
+linha 5: 'x' já declarado neste escopo (linha 4)
+linha 7: 'p' já declarado neste escopo (linha 2)
+linha 8: 'z' não declarado

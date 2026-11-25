@@ -1,0 +1,17 @@
+int x = 1;
+int y = 2;
+int soma(int a) {
+    int r = a + x;
+    {
+        int x = r * 2;
+        {
+            int y = x + a;
+            r = y;
+        }
+        r = r + y;
+    }
+    return r + x;
+}
+void main() {
+    y = soma(y);
+}

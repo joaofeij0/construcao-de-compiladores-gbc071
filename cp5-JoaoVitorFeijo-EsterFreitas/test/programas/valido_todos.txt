@@ -1,0 +1,42 @@
+int contador = 0;
+double taxa = 1.5;
+bool ativo = true;
+char letra = 'a';
+string nome = "ana";
+
+double media(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+int fatorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * fatorial(n - 1);
+}
+
+void registra(string msg, int vezes) {
+    int i;
+    for (i = 0; i < vezes; i = i + 1) {
+        contador = contador + 1;
+    }
+    return;
+}
+
+void principal() {
+    double m = media(taxa, 2.5);
+    int f = fatorial(5);
+    bool igual = letra == 'b';
+    while (ativo && contador < 10) {
+        registra(nome, 2);
+        if (nome != "bia") {
+            ativo = !igual;
+        } else {
+            ativo = false;
+        }
+    }
+    {
+        double d = m * 2.0 - taxa;
+        m = -d;
+    }
+}

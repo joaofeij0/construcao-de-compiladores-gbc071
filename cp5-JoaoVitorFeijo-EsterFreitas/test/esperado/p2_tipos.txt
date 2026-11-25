@@ -1,0 +1,75 @@
+Program
+  VarDecl(string saudacao)
+    Str("ola, \"mundo\"\n")
+  VarDecl(char inicial)
+    Char('a')
+  VarDecl(double taxa)
+    Double(1.50)
+  FuncDecl(double media)
+    Param(double a)
+    Param(double b)
+    Block
+      Return
+        Bin(/)
+          Bin(+)
+            Id(a)
+            Id(b)
+          Double(2.0)
+  ProcDecl(mostra)
+    Param(string msg)
+    Param(int vezes)
+    Block
+      For
+        init: VarDecl(int i)
+          Int(0)
+        cond: Bin(<)
+          Id(i)
+          Id(vezes)
+        step: Assign(i)
+          Bin(+)
+            Id(i)
+            Int(1)
+        Block
+          CallStmt
+            Call(imprime)
+              Id(msg)
+  ProcDecl(principal)
+    Block
+      VarDecl(bool ativo)
+        Unary(!)
+          Bool(false)
+      VarDecl(int n)
+        Unary(-)
+          Int(3)
+      VarDecl(double m)
+        Call(media)
+          Id(taxa)
+          Double(2.5)
+      VarDecl(char c)
+      If
+        Bin(&&)
+          Bin(<)
+            Id(n)
+            Int(0)
+          Id(ativo)
+        Block
+          Assign(n)
+            Unary(-)
+              Id(n)
+        If
+          Bin(==)
+            Id(n)
+            Int(0)
+          Block
+            CallStmt
+              Call(mostra)
+                Str("zero")
+                Int(1)
+          Block
+            Assign(c)
+              Char('\'')
+      CallStmt
+        Call(mostra)
+          Id(saudacao)
+          Id(n)
+      Return

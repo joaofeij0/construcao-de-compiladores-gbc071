@@ -1,0 +1,13 @@
+double media(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+int dobro(int x) {
+    return x * 2;
+}
+
+void principal() {
+    double m1 = media(1, 2);
+    double m2 = media(1.5, 3);
+    int d = dobro(2.5);
+}

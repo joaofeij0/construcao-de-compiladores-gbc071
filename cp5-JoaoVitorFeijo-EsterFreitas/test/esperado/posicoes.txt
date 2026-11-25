@@ -1,0 +1,8 @@
+Program @1:1
+  FuncDecl(int f) @1:1
+    Param(int a) @1:7
+    Block @1:14
+      Return @2:5
+        Bin(+) @2:12
+          Id(a) @2:12
+          Int(1) @2:16

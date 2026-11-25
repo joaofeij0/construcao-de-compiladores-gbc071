@@ -1,0 +1,24 @@
+== ambiente ==
+abre nível 0 => { }
+declara func par@1 => { par@1 }
+declara func impar@7 => { par@1, impar@7 }
+abre nível 1 => { } :: { par@1, impar@7 }
+declara param n@1 => { n@1 } :: { par@1, impar@7 }
+abre nível 2 => { } :: { n@1 } :: { par@1, impar@7 }
+fecha nível 2 => { n@1 } :: { par@1, impar@7 }
+fecha nível 1 => { par@1, impar@7 }
+abre nível 1 => { } :: { par@1, impar@7 }
+declara param n@7 => { n@7 } :: { par@1, impar@7 }
+abre nível 2 => { } :: { n@7 } :: { par@1, impar@7 }
+fecha nível 2 => { n@7 } :: { par@1, impar@7 }
+fecha nível 1 => { par@1, impar@7 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 2: n -> n@1 (param, nível 1)
+linha 5: impar -> impar@7 (func, nível 0)
+linha 5: n -> n@1 (param, nível 1)
+linha 8: n -> n@7 (param, nível 1)
+linha 11: par -> par@1 (func, nível 0)
+linha 11: n -> n@7 (param, nível 1)
+== erros ==
+(nenhum)

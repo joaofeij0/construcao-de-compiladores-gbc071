@@ -1,0 +1,16 @@
+void f(int n) {
+    bool b = n > 0;
+    if (b) {
+        n = 0;
+    }
+    if (n) {
+        n = 1;
+    }
+    int x = b + 1;
+    for (; n; n = n - 1) {
+        b = !b;
+    }
+    while (b && n) {
+        n = 0;
+    }
+}

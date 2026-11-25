@@ -1,0 +1,23 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc soma@3 => { soma@3 }
+recusa proc soma@8 (já existe soma@3) => { soma@3 }
+declara var total@1 => { soma@3, total@1 }
+recusa var total@2 (já existe total@1) => { soma@3, total@1 }
+abre nível 1 => { } :: { soma@3, total@1 }
+declara param x@3 => { x@3 } :: { soma@3, total@1 }
+declara var y@4 => { x@3, y@4 } :: { soma@3, total@1 }
+recusa var y@5 (já existe y@4) => { x@3, y@4 } :: { soma@3, total@1 }
+fecha nível 1 => { soma@3, total@1 }
+abre nível 1 => { } :: { soma@3, total@1 }
+fecha nível 1 => { soma@3, total@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 4: x -> x@3 (param, nível 1)
+linha 5: total -> total@1 (var, nível 0)
+linha 6: total -> total@1 (var, nível 0)
+linha 6: y -> y@4 (var, nível 1)
+== erros ==
+linha 2: 'total' já declarado neste escopo (linha 1)
+linha 5: 'y' já declarado neste escopo (linha 4)
+linha 8: 'soma' já declarado neste escopo (linha 3)

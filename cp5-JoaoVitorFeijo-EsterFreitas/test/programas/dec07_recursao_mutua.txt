@@ -1,0 +1,14 @@
+bool par(int n) {
+    if (n == 0) {
+        return true;
+    }
+    return impar(n - 1, 0);
+}
+
+bool impar(int n) {
+    if (n == 0) {
+        return false;
+    }
+    int x = par(n - 1);
+    return par(n - 1);
+}

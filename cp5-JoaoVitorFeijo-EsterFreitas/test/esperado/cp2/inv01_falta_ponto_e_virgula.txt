@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 3, Coluna 5: esperado operador, ')', ',' ou ';', encontrado 'return'

@@ -1,0 +1,12 @@
+int contador = 0;
+
+int incrementa() {
+    contador = contador + 1;
+    return contador;
+}
+
+void principal() {
+    incrementa();
+    incrementa();
+    int atual = incrementa();
+}

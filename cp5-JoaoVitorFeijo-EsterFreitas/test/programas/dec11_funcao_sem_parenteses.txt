@@ -1,0 +1,14 @@
+int dez() {
+    return 10;
+}
+
+void nada() {
+    return;
+}
+
+void principal() {
+    int x = dez;
+    int y = dez();
+    int z = nada;
+    dez = 5;
+}

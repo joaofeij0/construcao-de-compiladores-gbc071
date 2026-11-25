@@ -1,0 +1,20 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc f@2 => { f@2 }
+declara func g@4 => { f@2, g@4 }
+declara proc h@7 => { f@2, g@4, h@7 }
+recusa var f@1 (já existe f@2) => { f@2, g@4, h@7 }
+abre nível 1 => { } :: { f@2, g@4, h@7 }
+fecha nível 1 => { f@2, g@4, h@7 }
+abre nível 1 => { } :: { f@2, g@4, h@7 }
+fecha nível 1 => { f@2, g@4, h@7 }
+abre nível 1 => { } :: { f@2, g@4, h@7 }
+declara var g@8 => { g@8 } :: { f@2, g@4, h@7 }
+fecha nível 1 => { f@2, g@4, h@7 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 9: g -> g@8 (var, nível 1)
+linha 9: g -> g@8 (var, nível 1)
+linha 9: f -> f@2 (proc, nível 0)
+== erros ==
+linha 1: 'f' já declarado neste escopo (linha 2)

@@ -1,0 +1,18 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc conta@2 => { conta@2 }
+declara var contador@1 => { conta@2, contador@1 }
+abre nível 1 => { } :: { conta@2, contador@1 }
+declara param n@2 => { n@2 } :: { conta@2, contador@1 }
+abre nível 2 => { } :: { n@2 } :: { conta@2, contador@1 }
+fecha nível 2 => { n@2 } :: { conta@2, contador@1 }
+fecha nível 1 => { conta@2, contador@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 3: n -> n@2 (param, nível 1)
+linha 4: contador -> contador@1 (var, nível 0)
+linha 4: contador -> contador@1 (var, nível 0)
+linha 5: conta -> conta@2 (proc, nível 0)
+linha 5: n -> n@2 (param, nível 1)
+== erros ==
+(nenhum)

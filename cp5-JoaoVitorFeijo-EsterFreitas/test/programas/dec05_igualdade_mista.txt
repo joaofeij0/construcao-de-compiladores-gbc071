@@ -1,0 +1,10 @@
+void f() {
+    int i = 1;
+    double d = 1.0;
+    bool b = true;
+    bool x1 = i == d;
+    bool x2 = d != i;
+    bool x3 = i == b;
+    bool x4 = 'a' == "a";
+    bool x5 = b == true;
+}

@@ -1,0 +1,31 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc p@2 => { p@2 }
+declara var a@1 => { p@2, a@1 }
+abre nível 1 => { } :: { p@2, a@1 }
+declara param b@2 => { b@2 } :: { p@2, a@1 }
+declara var c@3 => { b@2, c@3 } :: { p@2, a@1 }
+abre nível 2 => { } :: { b@2, c@3 } :: { p@2, a@1 }
+declara var a@5 => { a@5 } :: { b@2, c@3 } :: { p@2, a@1 }
+declara var b@6 => { a@5, b@6 } :: { b@2, c@3 } :: { p@2, a@1 }
+abre nível 3 => { } :: { a@5, b@6 } :: { b@2, c@3 } :: { p@2, a@1 }
+declara var p@8 => { p@8 } :: { a@5, b@6 } :: { b@2, c@3 } :: { p@2, a@1 }
+fecha nível 3 => { a@5, b@6 } :: { b@2, c@3 } :: { p@2, a@1 }
+fecha nível 2 => { b@2, c@3 } :: { p@2, a@1 }
+recusa var c@14 (já existe c@3) => { b@2, c@3 } :: { p@2, a@1 }
+fecha nível 1 => { p@2, a@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 3: a -> a@1 (var, nível 0)
+linha 3: b -> b@2 (param, nível 1)
+linha 6: a -> a@5 (var, nível 2)
+linha 8: a -> a@5 (var, nível 2)
+linha 8: b -> b@6 (var, nível 2)
+linha 9: c -> c@3 (var, nível 1)
+linha 9: p -> p@8 (var, nível 3)
+linha 11: c -> c@3 (var, nível 1)
+linha 11: a -> a@5 (var, nível 2)
+linha 13: c -> c@3 (var, nível 1)
+linha 13: a -> a@1 (var, nível 0)
+== erros ==
+linha 14: 'c' já declarado neste escopo (linha 3)

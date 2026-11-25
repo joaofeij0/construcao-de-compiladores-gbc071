@@ -1,0 +1,9 @@
+void f() {
+    int i = 2;
+    double d = 1.5;
+    double soma = i + d;
+    bool menor = i < d;
+    double x = 1;
+    i = d;
+    d = i;
+}

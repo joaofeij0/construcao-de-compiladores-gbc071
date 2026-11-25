@@ -1,0 +1,6 @@
+int a = 1;
+void p() {
+    b = 1;
+    a = a + c;
+    q(a, d);
+}

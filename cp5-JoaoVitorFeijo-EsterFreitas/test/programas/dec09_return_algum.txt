@@ -1,0 +1,9 @@
+int sinal(int x) {
+    if (x > 0) {
+        return 1;
+    }
+}
+
+int nenhum(int x) {
+    x = x + 1;
+}

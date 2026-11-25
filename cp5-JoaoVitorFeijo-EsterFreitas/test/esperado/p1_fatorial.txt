@@ -1,0 +1,38 @@
+Program
+  VarDecl(int limite)
+    Int(10)
+  FuncDecl(int fatorial)
+    Param(int n)
+    Block
+      VarDecl(int resultado)
+        Int(1)
+      While
+        Bin(>)
+          Id(n)
+          Int(1)
+        Block
+          Assign(resultado)
+            Bin(*)
+              Id(resultado)
+              Id(n)
+          Assign(n)
+            Bin(-)
+              Id(n)
+              Int(1)
+      Return
+        Id(resultado)
+  FuncDecl(bool ehPar)
+    Param(int x)
+    Block
+      If
+        Bin(==)
+          Bin(%)
+            Id(x)
+            Int(2)
+          Int(0)
+        Block
+          Return
+            Bool(true)
+        Block
+          Return
+            Bool(false)

@@ -1,0 +1,17 @@
+int limite = 10;
+double fator = 0.5;
+
+bool dentro(int x) {
+    return x <= limite;
+}
+
+double escala(int x) {
+    if (dentro(x)) {
+        return x * fator;
+    }
+    return fator;
+}
+
+void ajusta() {
+    limite = limite * fator;
+}

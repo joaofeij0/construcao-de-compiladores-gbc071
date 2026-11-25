@@ -1,0 +1,18 @@
+int total(int a, int b) {
+    int s = a + true;
+    s = s * 2;
+    if (s) {
+        s = 0;
+    }
+    double d = s;
+    return d;
+}
+
+void registra() {
+    int r = total(1);
+    bool ok = r == "x";
+    char c = 'a' + 1;
+    while (ok) {
+        ok = !r;
+    }
+}

@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 4, Coluna 1: esperado comando ou '}', encontrado fim do arquivo

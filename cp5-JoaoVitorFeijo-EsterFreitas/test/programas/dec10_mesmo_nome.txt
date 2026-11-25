@@ -1,0 +1,11 @@
+int soma(int a, int b) {
+    return a + b;
+}
+
+double soma(double a, double b) {
+    return a + b;
+}
+
+void principal() {
+    double r = soma(1.5, 2.5);
+}

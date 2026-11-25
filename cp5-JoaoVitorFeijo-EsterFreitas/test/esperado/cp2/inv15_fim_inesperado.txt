@@ -1,0 +1,2 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 1: esperado tipo de parâmetro ou ')', encontrado fim do arquivo

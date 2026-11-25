@@ -1,0 +1,37 @@
+== ambiente ==
+abre nível 0 => { }
+declara func soma@3 => { soma@3 }
+declara proc main@15 => { soma@3, main@15 }
+declara var x@1 => { soma@3, main@15, x@1 }
+declara var y@2 => { soma@3, main@15, x@1, y@2 }
+abre nível 1 => { } :: { soma@3, main@15, x@1, y@2 }
+declara param a@3 => { a@3 } :: { soma@3, main@15, x@1, y@2 }
+declara var r@4 => { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+abre nível 2 => { } :: { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+declara var x@6 => { x@6 } :: { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+abre nível 3 => { } :: { x@6 } :: { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+declara var y@8 => { y@8 } :: { x@6 } :: { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+fecha nível 3 => { x@6 } :: { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+fecha nível 2 => { a@3, r@4 } :: { soma@3, main@15, x@1, y@2 }
+fecha nível 1 => { soma@3, main@15, x@1, y@2 }
+abre nível 1 => { } :: { soma@3, main@15, x@1, y@2 }
+fecha nível 1 => { soma@3, main@15, x@1, y@2 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 4: a -> a@3 (param, nível 1)
+linha 4: x -> x@1 (var, nível 0)
+linha 6: r -> r@4 (var, nível 1)
+linha 8: x -> x@6 (var, nível 2)
+linha 8: a -> a@3 (param, nível 1)
+linha 9: r -> r@4 (var, nível 1)
+linha 9: y -> y@8 (var, nível 3)
+linha 11: r -> r@4 (var, nível 1)
+linha 11: r -> r@4 (var, nível 1)
+linha 11: y -> y@2 (var, nível 0)
+linha 13: r -> r@4 (var, nível 1)
+linha 13: x -> x@1 (var, nível 0)
+linha 16: y -> y@2 (var, nível 0)
+linha 16: soma -> soma@3 (func, nível 0)
+linha 16: y -> y@2 (var, nível 0)
+== erros ==
+(nenhum)

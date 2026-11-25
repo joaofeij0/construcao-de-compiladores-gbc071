@@ -1,0 +1,9 @@
+void f(int n) {
+    int x = n;
+    if (x) {
+        x = 0;
+    }
+    while (n - 1) {
+        n = n - 1;
+    }
+}

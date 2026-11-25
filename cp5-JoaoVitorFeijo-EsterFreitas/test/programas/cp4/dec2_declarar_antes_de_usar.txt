@@ -1,0 +1,12 @@
+int a = b;
+int b = 1;
+void p() {
+    x = 1;
+    int x = x;
+    q();
+}
+int x = 5;
+void q() {
+    int b = b + 1;
+    x = a + b;
+}

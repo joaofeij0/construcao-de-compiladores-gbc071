@@ -1,0 +1,3 @@
+REJEITADO
+[Erro Sintático] Linha 2, Coluna 9: esperado expressão, encontrado '='
+[Erro Sintático] Linha 4, Coluna 1: esperado operador, ')', ',' ou ';', encontrado '}'

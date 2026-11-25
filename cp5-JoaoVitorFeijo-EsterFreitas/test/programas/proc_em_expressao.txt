@@ -1,0 +1,10 @@
+void mostra(int x) {
+    return;
+}
+
+int principal() {
+    int y = mostra(1);
+    int z = mostra(2) + 1;
+    mostra(3);
+    return y + z;
+}

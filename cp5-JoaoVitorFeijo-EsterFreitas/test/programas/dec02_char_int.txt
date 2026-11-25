@@ -1,0 +1,9 @@
+void f() {
+    char c = 'a';
+    bool igual = c == 'b';
+    bool diferente = c != 'z';
+    int n = c + 1;
+    bool menor = c < 'b';
+    bool misto = c == 97;
+    char d = 66;
+}

@@ -1,0 +1,20 @@
+== ambiente ==
+abre nível 0 => { }
+declara proc p@2 => { p@2 }
+declara var a@1 => { p@2, a@1 }
+abre nível 1 => { } :: { p@2, a@1 }
+fecha nível 1 => { p@2, a@1 }
+fecha nível 0 => (vazio)
+== usos ==
+linha 3: b -> não declarado
+linha 4: a -> a@1 (var, nível 0)
+linha 4: a -> a@1 (var, nível 0)
+linha 4: c -> não declarado
+linha 5: q -> não declarado
+linha 5: a -> a@1 (var, nível 0)
+linha 5: d -> não declarado
+== erros ==
+linha 3: 'b' não declarado
+linha 4: 'c' não declarado
+linha 5: 'q' não declarado
+linha 5: 'd' não declarado

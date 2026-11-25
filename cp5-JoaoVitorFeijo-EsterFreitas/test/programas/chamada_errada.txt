@@ -1,0 +1,18 @@
+int fat(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * fat(n - 1);
+}
+
+void mostra(string s) {
+    return;
+}
+
+void principal() {
+    int a = fat(3, 4);
+    mostra(10);
+    mostra();
+    int b = fat(true);
+    int c = fat(5) + 1;
+}

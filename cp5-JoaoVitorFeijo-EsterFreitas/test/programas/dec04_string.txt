@@ -1,0 +1,8 @@
+void f() {
+    string a = "ola";
+    string b = "mundo";
+    bool igual = a == b;
+    bool diferente = a != "ola";
+    string c = a + b;
+    bool menor = a < b;
+}

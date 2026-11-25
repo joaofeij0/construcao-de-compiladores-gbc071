@@ -1,0 +1,15 @@
+int dobro(int x) {
+    return x * 2.0;
+}
+
+bool positivo(int x) {
+    return x;
+}
+
+void nada() {
+    return 1;
+}
+
+int semValor() {
+    return;
+}
